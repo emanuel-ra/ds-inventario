@@ -16,13 +16,16 @@ use App\Http\Controllers\ProductoController;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
-
 /* 
     * RUTAS PRODUCTOS
+        - LISTADO DE PRODUCTOS 
+        - DATOS DEL PRODUCTO
+        - REGISTRO DEL PRODUCTO 
+        - ACTUALIZA DATOS DEL PRODUCTO
 */
 Route::prefix('productos')->controller(ProductoController::class)->group(function(){
-    Route::get('/lista', 'getLista');    
+    Route::get('/lista', 'getLista');
+    Route::get('/ver/{id}', 'getProducto');
+    Route::post('/alta', 'registrar');
+    Route::post('/actualiza', 'actualizar');
 });

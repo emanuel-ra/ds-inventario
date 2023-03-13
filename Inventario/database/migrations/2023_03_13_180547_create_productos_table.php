@@ -15,11 +15,12 @@ return new class extends Migration
             $table->id();
             $table->string('sku');
             $table->string('nombre');
-            $table->string('descripcion');
+            $table->text('descripcion')->nullable();
             $table->unsignedInteger('categoria_id');
-            $table->decimal('precio',10,2);       
+            $table->decimal('precio',15,2);       
             $table->integer('cantidad');
-            $table->tinyText('estado');
+            $table->tinyInteger('estado');
+            $table->tinyInteger('estatus_id');
             $table->timestamps();
         });
     }
