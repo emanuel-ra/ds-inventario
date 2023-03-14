@@ -20,7 +20,7 @@ return new class extends Migration
             $table->decimal('precio',15,2);       
             $table->integer('cantidad');
             $table->tinyInteger('estado');
-            $table->tinyInteger('estatus_id');
+            $table->tinyInteger('estatus_id')->default(1);
             $table->timestamps();
         });
     }

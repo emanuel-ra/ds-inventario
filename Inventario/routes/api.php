@@ -29,6 +29,7 @@ Route::prefix('productos')->controller(ProductoController::class)->group(functio
     Route::get('/ver/{id}', 'getProducto');
     Route::post('/alta', 'registrar');
     Route::post('/actualiza', 'actualizar');
+    Route::get('/delete/{id}', 'delete');
 });
 
 /* 

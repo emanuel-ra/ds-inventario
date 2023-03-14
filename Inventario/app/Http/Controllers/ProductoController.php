@@ -24,7 +24,8 @@ class ProductoController extends Controller
         * @return json
     */
     public function getLista(){
-        $datos = Producto::with('Categoria')->get();
+        // * SOLO RETORNA PRODUCTOS ACTIVOS
+        $datos = Producto::where('estatus_id',1)->with('Categoria')->get();
         return Response::json($datos, 201);
     }
     /*
@@ -32,6 +33,7 @@ class ProductoController extends Controller
         * @return json
     */
     public function getProducto($id){
+        // TODO : VALIDAR SI ES UN PRODUCTO ACTIVO
         $datos = Producto::find($id);
         return Response::json($datos, 201);
     }
@@ -119,5 +121,32 @@ class ProductoController extends Controller
                 'data'=>[]
             ], 400);
         }
+    }
+    public function delete($id){
+        if(!(int)$id){
+            return response()->json([
+                'mensaje'  => "Parámetro incorrecto",
+                'data'=>[]
+            ], 400);
+        }
+        // ESTATUS 2 = ELIMINADO 
+        $producto = Producto::find($id);
+        $producto->estatus_id=2;
+
+
+        try{
+            $producto->save();
+            return Response::json([
+                'mensaje'  => "Producto eliminado",
+                'data' => $producto
+            ], 201);
+        }catch(\Exception $e)
+        {   
+            return response()->json([
+                'mensaje'  => "Problema al registrar producto",
+                'data'=>[]
+            ], 400);
+        }
+
     }
 }
