@@ -24,8 +24,9 @@ class ProductoController extends Controller
         * @return json
     */
     public function getLista(){
-        // * SOLO RETORNA PRODUCTOS ACTIVOS
-        $datos = Producto::where('estatus_id',1)->with('Categoria')->get();
+        // * SOLO RETORNA PRODUCTOS ACTIVOS 
+        // * LISTA ORDENADA POR ID DESCENDIENTE
+        $datos = Producto::where('estatus_id',1)->with('Categoria')->orderBy('id','DESC')->get();
         return Response::json($datos, 201);
     }
     /*
