@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\CategoriasController;
-
+use App\Http\Controllers\CalificacionesController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -37,4 +37,12 @@ Route::prefix('productos')->controller(ProductoController::class)->group(functio
 */
 Route::prefix('categorias')->controller(CategoriasController::class)->group(function(){
     Route::get('/lista', 'getLista');  
+});
+
+
+/* 
+    * RUTA DE CALIFICACIONES DE PRODUCTOS 
+*/
+Route::prefix('calificacion')->controller(CalificacionesController::class)->group(function(){
+    Route::get('/producto/{id}/{cantidad}', 'setCalificacion');  
 });
