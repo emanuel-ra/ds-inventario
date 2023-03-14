@@ -86,8 +86,25 @@ main{
   width: 15px;
   height:  auto;
 }
+.btn_start{
+  border: none;  
+  background-color: white;
+  cursor: pointer;
+}
+.start{
+  width: 20px;
+  height: auto;
+  color: #78909C;
+}
+.btn_start:hover .start{
+  color: yellow;
+  fill: yellow;
+}
 .inStock{
   color: green;
+}
+.withoutStock{
+  color: red;
 }
 .title{
   font-size: 18px;

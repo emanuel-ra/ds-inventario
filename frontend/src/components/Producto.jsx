@@ -1,8 +1,23 @@
-import React from 'react'
 import { NavLink } from 'react-router-dom'
-
+import { ENDPOINT_API, FUNCTION_ELIMINAR } from '../utils/api'
 import { productImg } from '../assets/image'
+import Start from './Start'
+
 export function Producto (props) {
+  const ENDPOINT = `${ENDPOINT_API}${FUNCTION_ELIMINAR}`
+
+  const elminarArticulo = ({ id }) => {
+    // TODO: agregar una confirmación antes de eliminar
+    // TODO: mejorar mensaje de producto eliminado
+
+    // ELIMINA ARTICULO
+    fetch(`${ENDPOINT}${id}`)
+      .then(response => response.json())
+      .then(data => {
+        alert(data.mensaje)
+      })
+  }
+
   return (
     <div className='card'>
       <img src={productImg} alt='Imagen Ejemplo' />
@@ -10,12 +25,19 @@ export function Producto (props) {
         <span className='title'>{props.nombre}</span>
         <span>By <a href='#' className='brand'>{props.categoria}</a></span>
 
-        <span className='inStock'>
-          {(props.inStock) && 'In Stock'}
+        <span className={` ${props.inStock ? 'inStock' : 'withoutStock'} `}>
+          {(props.inStock) ? 'In Stock' : 'Without Stock'}
         </span>
         <span className='sku'>Inventario: {props.cantidad}</span>
         <span className='sku'>SKU: {props.sku}</span>
         <span className='price'>${props.precio}</span>
+        <div>
+          <Start calificacion={1} />
+          <Start calificacion={2} />
+          <Start calificacion={3} />
+          <Start calificacion={4} />
+          <Start calificacion={5} />
+        </div>
       </div>
       <div className='actions'>
 
@@ -26,7 +48,12 @@ export function Producto (props) {
           Editar
         </NavLink>
 
-        <button className='actions_btn btn_red'>
+        <button
+          key={`delete${props.id}`} className='actions_btn btn_red' onClick={() => {
+            elminarArticulo({ id: props.id })
+            props.eliminar()
+          }}
+        >
           <svg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' strokeWidth='1.5' stroke='currentColor' className='icon'>
             <path strokeLinecap='round' strokeLinejoin='round' d='M6 18L18 6M6 6l12 12' />
           </svg>

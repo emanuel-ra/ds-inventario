@@ -1,14 +1,17 @@
 import React, { useEffect, useState } from 'react'
 import { NavLink } from 'react-router-dom'
-
+import { ENDPOINT_API, FUNCTION_LISTA_CATEGORIAS, FUNCTION_ALTA_PRODUCTO } from './utils/api'
 function Registro () {
   const [categorias, setCategorias] = useState('')
   const [respuesta, setRespuesta] = useState('')
   const [error, setError] = useState(0)
 
+  const ENDPOINT_CATEGORIAS = `${ENDPOINT_API}${FUNCTION_LISTA_CATEGORIAS}`
+  const ENDPOINT_ALTA_PRODUCTO = `${ENDPOINT_API}${FUNCTION_ALTA_PRODUCTO}`
+
   //  OBTENGO LOS DATOS DE LAS CATEGORÍAS MEDIANTE UN FETCH Y ACTUALIZO EL STATE DE CATEGORIAS
   useEffect(() => {
-    fetch('http://127.0.0.1:8000/api/categorias/lista')
+    fetch(ENDPOINT_CATEGORIAS)
       .then(response => response.json())
       .then(data => {
         setCategorias(data)
@@ -31,6 +34,7 @@ function Registro () {
     const descripcion = document.getElementById('descripcion').value
     const categoria_id = document.getElementById('categoria_id').value
 
+    // VALIDACIONES PARA QUE NO VALLAN VALORES VACÍOS
     if (nombre === '') {
       setRespuesta('Capture Nombre')
       setError(1)
@@ -47,7 +51,6 @@ function Registro () {
       setError(1)
       return false
     }
-
     if (precio === '') {
       setRespuesta('Capture precio')
       setError(1)
@@ -60,6 +63,7 @@ function Registro () {
       return false
     }
 
+    // JSON A ENVIAR
     const data = {
       sku,
       nombre,
@@ -68,7 +72,8 @@ function Registro () {
       precio,
       cantidad
     }
-    fetch('http://127.0.0.1:8000/api/productos/alta', {
+
+    fetch(ENDPOINT_ALTA_PRODUCTO, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -122,7 +127,7 @@ function Registro () {
       <div key='formCategoria' className='form-group'>
         <label>Categoría</label>
         <select id='categoria_id'>
-          {categorias && categorias.map(opt => {           
+          {categorias && categorias.map(opt => {
             return (<option key={`opt${opt.id}`} value={opt.id}>{opt.nombre}</option>)
           })}
         </select>

@@ -34,7 +34,7 @@ function Editar () {
       setError(1)
       return false
     }
-
+    
     if (precio === '') {
       setRespuesta('Capture precio')
       setError(1)
@@ -72,6 +72,7 @@ function Editar () {
       })
       .then(data => {
         setRespuesta(data.mensaje)
+        console.log(data)
       })
       .catch((error) => {
         console.error('Error:', error)
