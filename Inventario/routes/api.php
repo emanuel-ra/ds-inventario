@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\ProductoController;
+use App\Http\Controllers\CategoriasController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,4 +29,11 @@ Route::prefix('productos')->controller(ProductoController::class)->group(functio
     Route::get('/ver/{id}', 'getProducto');
     Route::post('/alta', 'registrar');
     Route::post('/actualiza', 'actualizar');
+});
+
+/* 
+    * RUTA DE CATEGORIAS
+*/
+Route::prefix('categorias')->controller(CategoriasController::class)->group(function(){
+    Route::get('/lista', 'getLista');  
 });
