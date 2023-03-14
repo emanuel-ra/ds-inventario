@@ -1,27 +1,14 @@
 import React, { useEffect, useState } from 'react'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useLocation } from 'react-router-dom'
 
-function Registro () {
+function Editar () {
   const [categorias, setCategorias] = useState('')
+  const [articulo, setArticulo] = useState('')
   const [respuesta, setRespuesta] = useState('')
   const [error, setError] = useState(0)
 
-  //  OBTENGO LOS DATOS DE LAS CATEGORÍAS MEDIANTE UN FETCH Y ACTUALIZO EL STATE DE CATEGORIAS
-  useEffect(() => {
-    fetch('http://127.0.0.1:8000/api/categorias/lista')
-      .then(response => response.json())
-      .then(data => {
-        setCategorias(data)
-      })
-  }, [])
-
-  const resetearForm = () => {
-    document.getElementById('nombre').value = ''
-    document.getElementById('sku').value = ''
-    document.getElementById('cantidad').value = ''
-    document.getElementById('precio').value = ''
-    document.getElementById('descripcion').value = ''
-  }
+  const location = useLocation()
+  const { id } = location.state
 
   const handleClick = () => {
     const nombre = document.getElementById('nombre').value
@@ -61,6 +48,7 @@ function Registro () {
     }
 
     const data = {
+      id,
       sku,
       nombre,
       descripcion,
@@ -68,7 +56,7 @@ function Registro () {
       precio,
       cantidad
     }
-    fetch('http://127.0.0.1:8000/api/productos/alta', {
+    fetch('http://127.0.0.1:8000/api/productos/actualiza', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -77,7 +65,7 @@ function Registro () {
     })
       .then(response => {
         if (response.ok) {
-          resetearForm()
+          // resetearForm()
           setError(0)
         }
         return response.json()
@@ -90,45 +78,69 @@ function Registro () {
       })
   }
 
+  //  OBTENGO LOS DATOS DE LAS CATEGORÍAS MEDIANTE UN FETCH Y ACTUALIZO EL STATE DE CATEGORIAS
+  useEffect(() => {
+    fetch('http://127.0.0.1:8000/api/categorias/lista')
+      .then(response => response.json())
+      .then(data => {
+        setCategorias(data)
+      })
+  }, [])
+
+  useEffect(() => {
+    fetch(`http://127.0.0.1:8000/api/productos/ver/${id}`)
+      .then(response => response.json())
+      .then(data => {
+        setArticulo(data)
+        // SELECCCIONAMOS EL VALOR POR DEFECTO 
+        Array.from(document.getElementById('categoria_id').options).forEach(function (elementos) {
+          if (elementos.value == data.categoria_id) { elementos.setAttribute('selected', true) }
+        })
+      })
+  }, [])
+
+  const selected = false
   return (
+
     <div className='form'>
-      <h1>Formulario de Registro</h1>
+      <h1>Formulario de Edición</h1>
 
-      <div key='formNombre' className='form-group'>
+      <div key='formUpdateNombre' className='form-group'>
         <label>Nombre</label>
-        <input type='text' id='nombre' />
+        <input type='text' id='nombre' defaultValue={articulo.nombre} />
       </div>
 
-      <div key='formSku' className='form-group'>
+      <div key='formUpdateSku' className='form-group'>
         <label>SKU</label>
-        <input type='text' id='sku' />
+        <input type='text' id='sku' defaultValue={articulo.sku} />
       </div>
 
-      <div key='formCantidad' className='form-group'>
+      <div key='formUpdateCantidad' className='form-group'>
         <label>Cantidad</label>
-        <input type='number' id='cantidad' />
+        <input type='number' id='cantidad' defaultValue={articulo.cantidad} />
       </div>
 
-      <div key='formPrecio' className='form-group'>
+      <div key='formUpdatePrecio' className='form-group'>
         <label>Precio</label>
-        <input type='number' id='precio' />
+        <input type='number' id='precio' defaultValue={articulo.precio} />
       </div>
 
-      <div key='formDescrip' className='form-group'>
+      <div key='formUpdateDescrip' className='form-group'>
         <label>Descripcion</label>
-        <textarea id='descripcion' />
+        <textarea id='descripcion' defaultValue={articulo.descripcion} />
       </div>
 
-      <div key='formCategoria' className='form-group'>
+      <div key='formUpdateCategoria' className='form-group'>
         <label>Categoría</label>
         <select id='categoria_id'>
-          {categorias && categorias.map(opt => {           
+          {categorias && categorias.map(opt => {
+            // selected = (opt.id == articulo.categoria_id)
             return (<option key={`opt${opt.id}`} value={opt.id}>{opt.nombre}</option>)
           })}
         </select>
       </div>
 
-      <div key='formGuardar' className='action_form'>
+      <div key='formUpdateGuardar' className='action_form'>
         <NavLink id='register_link' to='/' className='btn_inicio' end>
           Inicio
         </NavLink>
@@ -141,7 +153,8 @@ function Registro () {
       {respuesta && <div className={`response ${error ? 'response-error' : 'response-success'} `}>{respuesta}</div>}
 
     </div>
+
   )
 }
 
-export default Registro
+export default Editar
