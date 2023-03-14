@@ -24,7 +24,7 @@ class ProductoController extends Controller
         * @return json
     */
     public function getLista(){
-        $datos = Producto::get();
+        $datos = Producto::with('Categoria')->get();
         return Response::json($datos, 201);
     }
     /*
