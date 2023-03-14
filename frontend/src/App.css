@@ -9,5 +9,68 @@ main{
   justify-content: center;
   align-items: center;
   max-width: 800px;
-  margin: 0 auto;  
+  margin: 30px auto;  
+}
+
+.card{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  padding: 10px; 
+  padding-left: 80px; 
+  background-color: white;
+  margin: 10px;
+  border-radius: 1;
+  gap: 50px;
+}
+.btn_registro{  
+  margin-left: 10px;  
+  border-radius: 5px;  
+  padding: 7px;
+  background-color: rgb(83, 83, 253);
+  color: white;
+  text-decoration: none;  
+}
+.card img{    
+  width: 150px;
+  height: auto;
+}
+.card-info{
+  min-width: 250px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.brand{
+  text-decoration: none;
+  color: rgb(161, 117, 233);
+  font-weight: bold;
+}
+.actions{
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.actions_btn{
+  width: 100%;
+  border: none;  
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.btn_red{
+  background-color: rgb(255, 77, 77);
+  color: white;
+}
+.icon{
+  width: 15px;
+  height:  auto;
+}
+.inStock{
+  color: green;
+}
+.title{
+  font-size: 18px;
+  font-weight: bolder;
 }

@@ -1,16 +1,15 @@
 import React from 'react'
-import Productos from './components/Productos';
+import Productos from './components/Productos'
 
-import { NavLink } from "react-router-dom";
+import { NavLink } from 'react-router-dom'
 
-function Inicio() {
+function Inicio () {
   return (
-    <div>
-        <NavLink id="register_link" to={`/registrar`} end>
-            Registrar
-        </NavLink>
-
-        <Productos />
+    <div className='container'>
+      <NavLink id='register_link' to='/registrar' className='btn_registro' end>
+        Registrar
+      </NavLink>
+      <Productos />
     </div>
   )
 }
