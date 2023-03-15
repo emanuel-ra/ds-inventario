@@ -48,5 +48,18 @@ varias calificaciones)
 ~~~  
 
 
+# LISTADO DE ARTICULOS 📝
 ## Screenshots  
 ![App Screenshot](./listado.png)  
+
+
+# FORMULARIO ALTA 📝
+## Screenshots  
+![App Screenshot](./registro.png)  
+
+# FORMULARIO ACTUALIZACIÓN 📝
+![App Screenshot](./update.png)  
+
+
+# DETALLE DE PRODUCTO 📝
+![App Screenshot](./detalle.png)  
