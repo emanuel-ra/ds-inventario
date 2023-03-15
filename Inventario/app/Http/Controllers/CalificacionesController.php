@@ -37,7 +37,8 @@ class CalificacionesController extends Controller
                 'data'=>[]
             ], 400);
         }
-  
+        
+        // REGISTRA CALIFICACIÓN
         $calificacion = new Calificaciones;
         $calificacion->product_id = $id;
         $calificacion->cantidad = $cantidad;

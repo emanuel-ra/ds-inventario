@@ -50,15 +50,18 @@ main{
 .actions{
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 5px;
+  padding: 0;
 }
 .actions_btn{
-  width: 100%;
+  width: 150px;
   border: none;  
   padding: 10px;
   border-radius: 5px;
   cursor: pointer;
   text-decoration: none;
+  text-align: center;
 }
 
 .btn_inicio{
@@ -165,4 +168,18 @@ main{
 .response-error{
   background-color: red;
   color: white;
+}
+
+.contenedor_detalle{
+  min-height: 100vh;
+  background-color: white;
+  padding: 15px;
+  display: flex;
+  flex-direction: row;
+  gap: 50px;
+}
+
+.contenedor_detalle img{
+  width: 150px;
+  height: 150px; 
 }

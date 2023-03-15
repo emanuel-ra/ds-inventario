@@ -35,7 +35,7 @@ class ProductoController extends Controller
     */
     public function getProducto($id){
         // TODO : VALIDAR SI ES UN PRODUCTO ACTIVO
-        $datos = Producto::find($id);
+        $datos = Producto::with('Categoria')->find($id);
         return Response::json($datos, 201);
     }
     /*

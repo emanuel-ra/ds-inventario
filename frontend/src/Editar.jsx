@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { NavLink, useLocation } from 'react-router-dom'
+import { ENDPOINT_API, FUNCTION_LISTA_CATEGORIAS, FUNCTION_ACTUALIZA_PRODUCTO,FUNCTION_VER_PRODUCTO } from './utils/api'
 
 function Editar () {
   const [categorias, setCategorias] = useState('')
@@ -7,9 +8,14 @@ function Editar () {
   const [respuesta, setRespuesta] = useState('')
   const [error, setError] = useState(0)
 
+  const ENDPOINT_CATEGORIAS = `${ENDPOINT_API}${FUNCTION_LISTA_CATEGORIAS}`
+  const ENDPOINT_ACTUALIZA_PRODUCTO = `${ENDPOINT_API}${FUNCTION_ACTUALIZA_PRODUCTO}`
+  const ENDPOINT_VER_PRODUCTO = `${ENDPOINT_API}${FUNCTION_VER_PRODUCTO}`
+
   const location = useLocation()
   const { id } = location.state
 
+  // FUNCTION: ACTUALIZA DATOS DEL PRODUCTO
   const handleClick = () => {
     const nombre = document.getElementById('nombre').value
     const sku = document.getElementById('sku').value
@@ -34,7 +40,7 @@ function Editar () {
       setError(1)
       return false
     }
-    
+
     if (precio === '') {
       setRespuesta('Capture precio')
       setError(1)
@@ -56,7 +62,7 @@ function Editar () {
       precio,
       cantidad
     }
-    fetch('http://127.0.0.1:8000/api/productos/actualiza', {
+    fetch(ENDPOINT_ACTUALIZA_PRODUCTO, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -81,26 +87,26 @@ function Editar () {
 
   //  OBTENGO LOS DATOS DE LAS CATEGORÍAS MEDIANTE UN FETCH Y ACTUALIZO EL STATE DE CATEGORIAS
   useEffect(() => {
-    fetch('http://127.0.0.1:8000/api/categorias/lista')
+    fetch(ENDPOINT_CATEGORIAS)
       .then(response => response.json())
       .then(data => {
         setCategorias(data)
       })
   }, [])
 
+  // PETICION PARA BUSCAR DATOS DEL PRODUCTO
   useEffect(() => {
-    fetch(`http://127.0.0.1:8000/api/productos/ver/${id}`)
+    fetch(`${ENDPOINT_VER_PRODUCTO}${id}`)
       .then(response => response.json())
       .then(data => {
         setArticulo(data)
-        // SELECCCIONAMOS EL VALOR POR DEFECTO 
+        // SELECCCIONAMOS EL VALOR POR DEFECTO DEL SELECT CATEGORIAS
         Array.from(document.getElementById('categoria_id').options).forEach(function (elementos) {
           if (elementos.value == data.categoria_id) { elementos.setAttribute('selected', true) }
         })
       })
   }, [])
 
-  const selected = false
   return (
 
     <div className='form'>
