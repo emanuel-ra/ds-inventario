@@ -46,3 +46,7 @@ varias calificaciones)
   npm run install 
   npm run dev 
 ~~~  
+
+
+## Screenshots  
+![App Screenshot](./listado.png)  
