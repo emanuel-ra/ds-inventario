@@ -41,7 +41,7 @@ varias calificaciones)
   php artisan serve
 ~~~  
 
-## Dentro de la carpeta fronten Ejecutar 
+## Dentro de la carpeta frontend Ejecutar 
 ~~~javascript  
   npm run install 
   npm run dev 
